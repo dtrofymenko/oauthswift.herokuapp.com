@@ -1,9 +1,10 @@
 # encoding: utf-8
 
 get "/callback/:scheme" do
-  path = request.path
+  scheme = params[:scheme]
+  path = request.path.gsub("/#{scheme}","")
   path_query = "#{path}?#{request.query_string}"
-  url = "#{:scheme}://oauth-callback#{path_query}"
+  url = "#{scheme}://#{path_query}"
   puts url
   redirect url
 end
